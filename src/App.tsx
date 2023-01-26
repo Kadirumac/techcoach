@@ -1,36 +1,21 @@
-import React, { useEffect, useState } from "react";
-import logo from "./logo.svg";
-import { BrowserRouter as Switch, Route } from "react-router-dom";
-import Navigation from "./components/Navigation";
-import { ProjectDOM } from "./database";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-
-//First Units are HomePages of ProjectDOM
-const RenderHomepages = ({ homepages }: any) => {
-  console.log(homepages);
-
-  return (
-    <>
-      {homepages.map((homepage: any, index: number) => {
-        console.log(homepage);
-
-        return (
-          <div>
-            {homepage.homepage.id}
-            kk
-          </div>
-        );
-      })}
-    </>
-  );
-};
+import RenderedContent from "./RenderedContent";
+import { selectAdmin, setOpenAdminMode } from "./features/reducers/adminSlice";
+import { useDispatch, useSelector } from "react-redux";
+import Admin from "./pages/Admin/Admin";
+import { useParams } from "react-router-dom";
+import "./assets/styles/index.scss"
 
 function App() {
+  const { openAdminMode } = useSelector(selectAdmin);
+  const dispatch = useDispatch()
+  if (window.location.pathname === "/admin") {
+    dispatch(setOpenAdminMode(true))
+  }
   return (
     <div className="App">
-      <Navigation />
-      <RenderHomepages homepages={ProjectDOM.mainEntry} />
+      {!openAdminMode ? <RenderedContent /> : <Admin />}
     </div>
   );
 }

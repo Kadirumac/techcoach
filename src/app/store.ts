@@ -1,11 +1,13 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import counterReducer from '../features/counter/counterSlice';
-import currentHomepage from '../features/homepage/homepageSlice';
+import adminMode from '../features/reducers/adminSlice';
+import currentHomepage from '../features/reducers/homepageSlice';
 
 export const store = configureStore({
   reducer: {
     counter: counterReducer,
     homepage: currentHomepage,
+    admin: adminMode
   },
 });
 
